@@ -1,0 +1,162 @@
+.generale {
+    
+
+}
+
+
+.bottenda {
+    background-color: #333;
+    color: #f2f2f2;
+    padding: 14px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.bottenda:hover, .bottenda:focus {
+    background-color: #555;
+}
+
+.tendina {
+    position: relative;
+    display: inline-block;
+}
+
+.contenuto-tendina {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.contenuto-tendina a {
+    color: #f2f2f2;
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.tendina a:hover {background-color: #555}
+
+.mostra {display:block;}
+
+
+
+#testata {
+    width: 100%;
+    height: 135px;
+    z-index: -1;
+    background: url(Immagini/header3.jpg) no-repeat center center;    
+    background-size: cover;    
+}
+
+
+nav ul.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+nav ul.navbar li {float: left;}
+nav ul.navbar li a {
+    display: inline-block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+nav ul.navbar li a:hover {background-color: #555;}
+nav ul.navbar li.resp {display: none;}
+
+aside{
+    margin-top: 10px;
+}
+aside ul.asidebar {
+    list-style-type: none;
+    width: 125px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+/*aside ul.asidebar li {float: left;}*/
+
+aside ul.asidebar li a {
+    display: inline-block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+aside ul.asidebar li a:hover {background-color: #555;}
+aside ul.asidebar li.resp {display: none;}
+
+
+@media screen and (max-width:1280px){
+    #testata{
+        width: 100%;
+        height: 107px;
+        z-index: -1;
+        background: url(Immagini/header680-1.jpg) no-repeat center center;    
+        background-size: cover;
+    }
+}
+
+
+@media screen and (max-width:680px) {
+    nav ul.navbar li:not(:first-child) {display: none;}
+    nav ul.navbar li.resp {
+        float: right;
+        display: inline-block;
+    }
+}
+
+
+/*la classe responsive viene creata, 
+quando viene eseguita la funzione "funzres()" */
+
+
+@media screen and (max-width:680px){
+    #testata{
+        width: 100%;
+        height: 80px;
+        z-index: -1;
+        background: url(Immagini/header680-1.jpg) no-repeat center center;    
+        background-size: cover;
+    }
+    nav ul.navbar.responsive {position: relative;}
+    nav ul.navbar.responsive li.resp {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    nav ul.navbar.responsive li {
+        float: none;
+        display: inline;
+    }
+    nav ul.navbar.responsive li a {
+        display: block;
+        text-align: left;
+    }
+}
+.immag {
+    height: 550px;
+    margin: auto;
+    box-shadow: 0px 0px 25px #333;
+}
+
+#slide {
+    margin: auto;
+    overflow: hidden;
+    height: 550px;
+    background-color: #7c858d;
+}

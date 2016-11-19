@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+        <title>Botell&oacute;n</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="Immagini/favicon.ico" />
+    </head>
+    <body>
+        <div class="generale">
+            <header id="testata">                       
+                
+            </header>
+            <nav>
+                <ul class="navbar" id="barra">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="chisiamo.html">Chi Siamo</a></li>
+                    <li><a href="#Contattaci">Contattaci</a></li>
+                    <li><a href="#Carrello">Carrello</a></li>                    
+                    <li class="resp">
+                        <a href="javascript:void(0);" style="font-size:15px;" 
+                           onclick="funzres()">=</a>
+                    </li>
+                    <li>
+                        <div class="tendina">
+                            <button onclick="myTenda()" class="bottenda">Prodotti</button>
+                                <div id="myTendina" class="contenuto-tendina">
+                                <a href="#birra">Birra</a>
+                                <a href="#vino">Vino</a>
+                                <a href="#liquori">Liquori</a>
+                                </div>
+                        </div>
+                    </li>
+                </ul>
+                
+            </nav>
+            
+            <section id="slide">
+                <img class="immag" src="Immagini/bott.jpg" alt="not found"
+                style="width:70%">
+                <img class="immag" src="Immagini/bottbic.jpg" alt="not found"
+                style="width:70%">
+                <img class="immag" src="Immagini/sang.jpg" alt="not found"
+                style="width:70%">
+            </section>
+            
+            <div id="contenuto">
+                <h1><center>Botell&oacute;n</center></h1>
+                <p><center>L'idea di fare questo sito, nasce dalla 
+                    necessit&agrave; di fornire ai giovani studenti 
+                    universitari una piattaforma sicura dove acquistare a basso 
+                    costo dei prodotti per il divertimento e l'alcolismo.</center></p>
+                <p><center>In questo sito si vendono prodotti per festeggiare il 
+                   botell&oacute;n. Potrete scegliere tra una ristretta 
+                   quantità di birre, vini e liquori. Oltre agli alcolici 
+                   &egrave; possibile acquistare anche alcuni prodotti utili al 
+                   buon svolgimento di un party.</center></p>
+                <p><center>Se sei interessato ai nostri prodotti acquistali 
+                   accedendo alla sezione dedicata, poi inserisci gli 
+                   articoli nel carrello e completa l'acquisto.</center></p>
+            </div>
+        </div>
+        
+        <script>
+            function funzres() {
+                var x = document.getElementById("barra");
+                if (x.className === "navbar") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "navbar";
+                }
+            }
+        </script>
+        
+        <script>
+            var myIndex = 0;
+            slider();
+
+            function slider() {
+                var i;
+                var x = document.getElementsByClassName("immag");
+                for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) {
+                myIndex = 1;
+            }
+            x[myIndex-1].style.display = "block";
+            setTimeout(slider, 3000);
+            }
+        </script>
+
+        <script>
+        /* quando si clicca sul bottone si apre il menu contestuale, nel caso 
+         * in cui si riclicchi il menu viene chiuso */
+        function myTenda() {
+        document.getElementById("myTendina").classList.toggle("mostra");
+        }
+
+        // chiude la tendina quando si clicca al di fuori di essa
+        window.onclick = function(event) {
+            if (!event.target.matches('.bottenda')) {
+                var tendine = document.getElementsByClassName("contenuto-tendina");
+                var i;
+                for (i = 0; i < tendine.length; i++) {
+                    var openTendina = tendine[i];
+                        if (openTendina.classList.contains('mostra')) {
+                            openTendina.classList.remove('mostra');
+                        }
+                }
+            }
+        };      
+</script>
+
+
+    </body>
+</html>

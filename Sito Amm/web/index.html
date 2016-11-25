@@ -15,25 +15,22 @@
             <nav>
                 <ul class="navbar" id="barra">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="chisiamo.html">Chi Siamo</a></li>
-                    <li><a href="#Contattaci">Contattaci</a></li>
-                    <li><a href="#Carrello">Carrello</a></li>                    
+                    <li class="menu">
+                        <a href="#" class="bmenu">Prodotti</a>                       
+                            <ul class="cont-menu">
+                                <li><a href="#">Birre</a></li>
+                                <li><a href="#">Vini</a></li>
+                                <li><a href="#">Alcolici</a></li>
+                            </ul>                                                  
+                    </li>                                                     
+                    <li><a href="#Contattaci">Contattaci</a></li> 
+                    <li><a href="utente.html">Login</a></li> 
+                    <li id="carrello"><a href="#Carrello">Carrello</a></li>
                     <li class="resp">
                         <a href="javascript:void(0);" style="font-size:15px;" 
-                           onclick="funzres()">=</a>
-                    </li>
-                    <li>
-                        <div class="tendina">
-                            <button onclick="myTenda()" class="bottenda">Prodotti</button>
-                                <div id="myTendina" class="contenuto-tendina">
-                                <a href="#birra">Birra</a>
-                                <a href="#vino">Vino</a>
-                                <a href="#liquori">Liquori</a>
-                                </div>
-                        </div>
-                    </li>
-                </ul>
-                
+                        onclick="funzres()">=</a>
+                    </li>                    
+                </ul>                
             </nav>
             
             <section id="slide">
@@ -91,29 +88,6 @@
             setTimeout(slider, 3000);
             }
         </script>
-
-        <script>
-        /* quando si clicca sul bottone si apre il menu contestuale, nel caso 
-         * in cui si riclicchi il menu viene chiuso */
-        function myTenda() {
-        document.getElementById("myTendina").classList.toggle("mostra");
-        }
-
-        // chiude la tendina quando si clicca al di fuori di essa
-        window.onclick = function(event) {
-            if (!event.target.matches('.bottenda')) {
-                var tendine = document.getElementsByClassName("contenuto-tendina");
-                var i;
-                for (i = 0; i < tendine.length; i++) {
-                    var openTendina = tendine[i];
-                        if (openTendina.classList.contains('mostra')) {
-                            openTendina.classList.remove('mostra');
-                        }
-                }
-            }
-        };      
-</script>
-
 
     </body>
 </html>

@@ -1,0 +1,115 @@
+/* campi di input a massima larghezza */
+input[type=text], input[type=password], input[type=number], input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* imposto stile per tutti bottoni */
+button {
+    background-color: #ccc;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+button:hover {background-color: #dacece;}
+
+/* stili in più per il bottone cancella */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/*centra l'immagine e la "X" per la chiusura */
+.immagine {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.utente {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.scatola {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* CSS form modale */
+.form-modale {
+    display: none; /* nascosto di default */
+    position: fixed; /* fissato nel posto */
+    z-index: 1; /* fissato in alto */
+    left: 0;
+    top: 0;
+    width: 100%; /* massima larghezza */
+    height: 100%; /* massima altezza */
+    overflow: auto; /* scroll abilitato se necessario, in quanto il contenuto in eccesso viene gestito automaticamente */
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px;
+}
+
+
+.modulo {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* centrato, 5% dal top 15% dal basso */
+    border: 1px solid #888;
+    width: 80%; /* a seconda della dimensione dello schermo */
+}
+
+/* stile bottone per la chiusura "X" */
+.chiudi {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.chiudi:hover,
+.chiudi:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* aggiunge una "zoom animation" */
+.animato {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* cambia gli stili per le espansioni ed il pulsante cancella per schermi molto piccoli */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}

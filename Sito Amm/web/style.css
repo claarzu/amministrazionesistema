@@ -81,7 +81,7 @@ nav ul.navbar li.resp {display: none;}
 .sidelft {
     margin-top: 10px;
     height: 100%;
-    width: 120px;
+    width: auto;
 }
 ul.asidebar {
     list-style-type: none;

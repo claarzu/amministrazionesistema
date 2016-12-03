@@ -2,10 +2,11 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css" type="text/css"/>
+        <link rel="stylesheet" href="utente.css" type="text/css"/>
         <title>Botell&oacute;n</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="Immagini/favicon.ico" />
+        <link rel="icon" href="Immagini/favicon.ico"/>
     </head>
     <body>
         <div class="generale">
@@ -33,9 +34,61 @@
                 </ul>                
             </nav>
             <div class="container">
-                <aside class="sidelft">
-                    <ul class="asidebar">
-                        <li><a href="#">Login</a></li>
+                <aside class="sidelft">                    
+                    <button onclick="document.getElementById('lg').style.display='block'" style="width: auto;">Login</button>
+                        <div id="lg" class="form-modale">
+                            <form class="modulo animato" action="login.php">
+                                <div class="immagine">
+                                    <span onclick="document.getElementById('lg').style.display='none'" class="chiudi" title="chiudi modale">&times;</span>
+                                    <img src="Immagini/utenti2.png" alt="utente" class="utente">
+                                </div>
+                                <div class="scatola">
+                                    <label><b>Username</b></label>
+                                        <input type="text" placeholder="Enter Username" name="uname" required>
+                                    <label><b>Password</b></label>
+                                        <input type="password" placeholder="Enter Password" name="psw" required>        
+                                    <button type="submit">Login</button>
+                                    <input type="checkbox" checked="checked"> Ricordami
+                                </div>
+                                <div class="scatola" style="background-color:#f1f1f1">
+                                    <button type="button" onclick="document.getElementById('lg').style.display='none'" class="cancelbtn">Cancella</button>
+                                    <span class="psw"><a href="#">password</a> dimenticata?</span>
+                                </div>
+                            </form>
+                        </div>
+                    <!--/*per mandare a capo il secondo bottone */-->
+                    <br>
+                    <button onclick="document.getElementById('rg').style.display='block'" style="width: auto;">Registrati</button> 
+                        <div id="rg" class="form-modale">
+                            <form class="modulo animato" action="signin.php">
+                                <div class="immagine">
+                                    <span onclick="document.getElementById('rg').style.display='none'" class="chiudi" title="chiudi modale">&times;</span>
+                                    <img src="Immagini/utenti2.png" alt="utente" class="utente">
+                                </div>
+                                <div class="scatola">
+                                    <label><b>Nome</b></label>
+                                        <input type="text" placeholder="Enter Name" name="name" required>
+                                    <label><b>Cognome</b></label>
+                                        <input type="text" placeholder="Enter Surname" name="sname" required>
+                                    <label><b>Indirizzo</b></label>
+                                        <input type="text" placeholder="Enter Address" name="address" required>
+                                    <label><b>CAP</b></label>
+                                        <input type="number" placeholder="Enter CAP" name="cap" required>
+                                    <label><b>Citt&agrave;</b></label>
+                                    <input type="text" placeholder="Citt&agrave;" name="city" required>
+                                    <label><b>Indirizzo e-mail</b></label>
+                                        <input type="email" placeholder="Enter E-Mail" name="e-mail" required>
+                                    <label><b>Password</b></label>
+                                        <input type="password" placeholder="Enter Password" name="psw" required>        
+                                    <button type="submit">Registrati</button>
+                                    <input type="checkbox" checked="checked"> Accetto i termini di contratto
+                                </div>
+                                <div class="scatola" style="background-color:#f1f1f1">
+                                    <button type="button" onclick="document.getElementById('lg').style.display='none'" class="cancelbtn">Cancella</button>
+                                </div>
+                            </form>
+                        </div>
+                    <ul class="asidebar">    
                         <li><a href="#">Registrati</a></li>
                         <li><a href="#">###</a></li>
                         <li><a href="#">###</a></li>
@@ -50,7 +103,7 @@
                 </div>
             </div>
         </div>
-        
+       
         <script>
             function funzres() {
                 var x = document.getElementById("barra");
@@ -60,6 +113,30 @@
                     x.className = "navbar";
                 }
             }
+        </script>
+        
+        <script>
+        // acquisizione form modale
+            var modal = document.getElementById('lg');
+
+        // la finestra si chiude cliccando da qualsiasi altra parte
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            };
+        </script>
+        
+        <script>
+        // acquisizione form modale
+            var modal = document.getElementById('rg');
+
+        // la finestra si chiude cliccando da qualsiasi altra parte
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            };
         </script>
     </body>
 </html>

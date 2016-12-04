@@ -8,10 +8,34 @@
     width: 100%;
     height: 135px;
     z-index: -1;
-    background: url(Immagini/header3.jpg) no-repeat center center;    
-    background-size: cover;    
+    background: url(Immagini/header1920.jpg) no-repeat center center;    
+    background-size: cover; 
+    overflow: hidden;
 }
 
+#testata h1 {
+    margin: auto;
+    padding-top: 8px;
+    text-align: center;
+    font-style: italic;
+    font-family: "Bloody", sans-serif;
+    font-size: 70px;
+    overflow: hidden;
+    color: #b30000;
+    text-shadow: 0px 0px 10px #cc0000;
+    font-weight: bold;
+}
+
+#testata p {
+    margin: auto;
+    text-align: center;
+    font-style: italic;
+    font-family: "Bloody", sans-serif;
+    font-size: 25px;
+    overflow: hidden;
+    color: #990000;
+    text-shadow: 0px 0px 5px #cc0000;
+}
 
 .navbar {
     list-style-type: none;
@@ -118,8 +142,27 @@ ul.asidebar li.resp {display: none;}
         width: 100%;
         height: 107px;
         z-index: -1;
-        background: url(Immagini/header680-1.jpg) no-repeat center center;    
+        background: url(Immagini/header1920.jpg) no-repeat center center;    
         background-size: cover;
+    }
+    
+    #testata h1 {
+        margin: auto;
+        padding-top: 6px;
+        text-align: center;
+        font-style: italic;
+        font-family: "Bloody", sans-serif;
+        font-size: 65px;
+        overflow: hidden;
+    }
+
+    #testata p {
+        margin: auto;
+        text-align: center;
+        font-style: italic;
+        font-family: "Bloody", sans-serif;
+        font-size: 20px;
+        overflow: hidden;
     }
 }
 
@@ -143,9 +186,29 @@ quando viene eseguita la funzione "funzres()" */
         width: 100%;
         height: 80px;
         z-index: -1;
-        background: url(Immagini/header680-1.jpg) no-repeat center center;    
+        background: url(Immagini/header680.jpg) no-repeat center center;    
         background-size: cover;
     }
+    #testata h1 {
+        margin: auto;
+        padding-top: 4px;
+        text-align: center;
+        font-style: italic;
+        font-family: "Bloody", sans-serif;
+        font-size: 50px;
+        overflow: hidden;
+    }
+
+    #testata p {
+        margin: auto;
+        text-align: center;
+        font-style: italic;
+        font-family: "Bloody", sans-serif;
+        font-size: 15px;
+        overflow: hidden;
+    }
+    
+    
     nav ul.navbar.responsive {position: relative;}
     nav ul.navbar.responsive li.resp {
         position: absolute;

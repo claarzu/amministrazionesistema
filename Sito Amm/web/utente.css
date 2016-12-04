@@ -13,12 +13,16 @@ button {
     background-color: #ccc;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 8px 5px;
     border: none;
     cursor: pointer;
     width: 100%;
 }
-button:hover {background-color: #dacece;}
+button:hover {
+    background-color: #dacece;
+    color: #e80000;
+}
+
 
 /* stili in più per il bottone cancella */
 .cancelbtn {

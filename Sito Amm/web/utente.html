@@ -40,7 +40,7 @@
                         <div id="lg" class="form-modale">
                             <form class="modulo animato" action="login.php">
                                 <div class="immagine">
-                                    <span onclick="document.getElementById('lg').style.display='none'" class="chiudi" title="chiudi modale">&times;</span>
+                                    <span onclick="document.getElementById('lg').style.display='none'" class="chiudi" title="chiudi form">&times;</span>
                                     <img src="Immagini/utenti2.png" alt="utente" class="utente">
                                 </div>
                                 <div class="scatola">
@@ -61,7 +61,7 @@
                     <br>
                     <button onclick="document.getElementById('rg').style.display='block'" style="width: 120px;">Registrati</button> 
                         <div id="rg" class="form-modale">
-                            <form class="modulo animato" action="signin.php">
+                            <form class="modulo animato" action="signin.php" method="POST">
                                 <div class="immagine">
                                     <span onclick="document.getElementById('rg').style.display='none'" class="chiudi" title="chiudi modale">&times;</span>
                                     <img src="Immagini/utenti2.png" alt="utente" class="utente">
@@ -79,8 +79,12 @@
                                     <input type="text" placeholder="Citt&agrave;" name="city" required>
                                     <label><b>Indirizzo e-mail</b></label>
                                         <input type="email" placeholder="Enter E-Mail" name="e-mail" required>
+                                    <label><b>Username</b></label>
+                                        <input type="text" placeholder="Choose Username" name="u_name" required>
                                     <label><b>Password</b></label>
-                                        <input type="password" placeholder="Enter Password" name="psw" required>        
+                                        <input type="password" placeholder="Enter Password" name="psw" required>
+                                    <label><b>Conferma Password</b></label>
+                                        <input type="password" placeholder="Enter Password Again" name="conferma_psw" required>
                                     <button type="submit">Registrati</button>
                                     <input type="checkbox" checked="checked"> Accetto i termini di contratto
                                 </div>

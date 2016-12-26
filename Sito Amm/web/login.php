@@ -28,7 +28,7 @@ $result = mysql_query($sql);
 if ($result == false) {
     echo "fallito";
 } else {
-    if ($ris==true) {
+    if ($result==true) {
     echo "richiesta andata a buon fine";} 
 }
 

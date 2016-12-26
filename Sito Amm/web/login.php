@@ -4,15 +4,15 @@ $nomehost = "localhost";
 $nomeuser = "root";
 $password = "";
 $dbname= "utenti";
-$user_username=($_POST['uname']);
-$user_password=($_POST['psw']);
+$user_username=filter_input(INPUT_POST, 'uname');
+$user_password=filter_input(INPUT_POST, 'psw');
 if ($user_username=="" or $user_password=="") {
     die ("compila tutti i campi");
 }
 $connessione = mysql_connect($nomehost,$nomeuser,$password);
 
 if($connessione==0){
-    echo "coemmessione fallita";
+    echo "connessione fallita";
 }
 
 $database_select=mysql_select_db($dbname,$connessione);
@@ -23,7 +23,7 @@ if($database_select==0){
 //si connette, sceglie il databse e adesso la tabella e controlla 1 x 1 tutti i valori dei campi
 
 //se nel campo username "1" il valore è uguale a $user_username e nel campo password cè un valore uguale a $user_password allora count risulterà 1 e quindi si procede:
-$sql= "SELECT *FROM utenti WHERE uname='$user_username' and password='$user_password'";
+$sql= "SELECT *FROM utenti WHERE username='$user_username' and password='$user_password'";
 $result = mysql_query($sql);
 if ($result == false) {
     echo "fallito";

@@ -17,15 +17,15 @@ if($database_select==0){
     echo "selezione non riuscita";
 }
 //inserisco i dati provenienti dal form con il metodo POST
-$nome = ($_POST['name']);
-$cognome = ($_POST['sname']);
-$indirizzo = ($_POST['address']);
-$cap = ($_POST['cap']);
-$citta = ($_POST['city']);
-$mail = ($_POST['e-mail']);
-$username = ($_POST['u_name']);
-$p_word = ($_POST['psw']);
-$c_psw = ($_POST['conferma_psw']);
+$nome = filter_input(INPUT_POST, 'name');
+$cognome = filter_input(INPUT_POST, 'sname');
+$indirizzo = filter_input(INPUT_POST, 'address');
+$cap = filter_input(INPUT_POST, 'cap');
+$citta = filter_input(INPUT_POST, 'city');
+$mail = filter_input(INPUT_POST, 'e-mail');
+$username = filter_input(INPUT_POST, 'u_name');
+$p_word = filter_input(INPUT_POST, 'psw');
+$c_psw = filter_input(INPUT_POST, 'consferma_psw');
 
 
     
@@ -42,7 +42,7 @@ if($p_word!=$c_psw){
         if($result==0) {
             die ("errore di registrazione");
         } else {
-            header ('location: utenti.html');
+            header ("location: utenti.html");
         }
     }
 }

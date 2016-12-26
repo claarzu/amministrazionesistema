@@ -1,3 +1,5 @@
+/* foglio di stile dedicato alla gestione degli stili dedicata alla gestione degli stili dei form dedicati all'utente'*/
+
 /* campi di input a massima larghezza */
 input[type=text], input[type=password], input[type=number], input[type=email] {
     width: 100%;

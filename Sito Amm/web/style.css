@@ -3,12 +3,11 @@
 
 }
 
-
 #testata {
     width: 100%;
     height: 135px;
     z-index: -1;
-    background: url(Immagini/header1920.jpg) no-repeat center center;    
+    background: url(Immagini/header.jpg) no-repeat center center;    
     background-size: cover; 
     overflow: hidden;
 }
@@ -142,7 +141,7 @@ ul.asidebar li.resp {display: none;}
         width: 100%;
         height: 107px;
         z-index: -1;
-        background: url(Immagini/header1920.jpg) no-repeat center center;    
+        background: url(Immagini/header.jpg) no-repeat center center;    
         background-size: cover;
     }
     
@@ -177,10 +176,8 @@ ul.asidebar li.resp {display: none;}
 }
 
 
-/*la classe responsive viene creata, 
+/*la classe responsive presente nelle media queries viene creata, 
 quando viene eseguita la funzione "funzres()" */
-
-
 @media screen and (max-width:680px){
     #testata{
         width: 100%;

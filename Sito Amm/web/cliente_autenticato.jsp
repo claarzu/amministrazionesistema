@@ -1,3 +1,10 @@
+<%-- 
+    Document   : cliente_autenticato
+    Created on : 19-gen-2017, 20.21.21
+    Author     : claar
+--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,32 +41,20 @@
                 </ul>                
             </nav>
             
-            <section id="slide">
-                <img class="immag" src="Immagini/bott.jpg" alt="not found"
-                style="width:70%">
-                <img class="immag" src="Immagini/bottbic.jpg" alt="not found"
-                style="width:70%">
-                <img class="immag" src="Immagini/sang.jpg" alt="not found"
-                style="width:70%">
-            </section>
-            
             <div id="contenuto">
                 <h1><center>Botell&oacute;n</center></h1>
-                <p><center>L'idea di fare questo sito, nasce dalla 
-                    necessit&agrave; di fornire ai giovani studenti 
-                    universitari una piattaforma sicura dove acquistare a basso 
-                    costo dei prodotti per il divertimento e l'alcolismo.</center></p>
-                <p><center>In questo sito si vendono prodotti per festeggiare il 
-                   botell&oacute;n. Potrete scegliere tra una ristretta 
-                   quantità di birre, vini e liquori. Oltre agli alcolici 
-                   &egrave; possibile acquistare anche alcuni prodotti utili al 
-                   buon svolgimento di un party.</center></p>
-                <p><center>Se sei interessato ai nostri prodotti acquistali 
-                   accedendo alla sezione dedicata, poi inserisci gli 
-                   articoli nel carrello e completa l'acquisto.</center></p>
+                <p><center>Benvenuto ${cliente.nome} ${cliente.cognome}</center></p>
+            <ul>
+                Il tuo carrello:
+                <c:forEach var="prodotto" items="${cliente.Carrello}">
+                        <li>${prodotto.carrello.tipo} - ${prodotto.carrello.prezzo}</li>
+                </c:forEach>
+            </ul>
+            
+                <p><center></center></p>
             </div>
         </div>
-        
+                
         <script>
             function funzres() {
                 var x = document.getElementById("barra");
@@ -70,25 +65,5 @@
                 }
             }
         </script>
-        
-        <script>
-            var myIndex = 0;
-            slider();
-
-            function slider() {
-                var i;
-                var x = document.getElementsByClassName("immag");
-                for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            myIndex++;
-            if (myIndex > x.length) {
-                myIndex = 1;
-            }
-            x[myIndex-1].style.display = "block";
-            setTimeout(slider, 3000);
-            }
-        </script>
-
     </body>
 </html>

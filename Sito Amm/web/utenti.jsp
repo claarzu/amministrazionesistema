@@ -1,3 +1,10 @@
+<%-- 
+    Document   : utenti
+    Created on : 12-gen-2017, 19.54.18
+    Author     : claar
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,7 +45,7 @@
                 <aside class="sidelft">                    
                     <button onclick="document.getElementById('lg').style.display='block'" style="width: 120px;">Login</button>
                         <div id="lg" class="form-modale">
-                            <form class="modulo animato" action="login.php" method="POST">
+                            <form class="modulo animato" action="Login" method="POST">
                                 <div class="immagine">
                                     <span onclick="document.getElementById('lg').style.display='none'" class="chiudi" title="chiudi form">&times;</span>
                                     <img src="Immagini/utenti2.png" alt="utente" class="utente">
@@ -48,7 +55,7 @@
                                         <input type="text" placeholder="Enter Username" name="uname" required>
                                     <label><b>Password</b></label>
                                         <input type="password" placeholder="Enter Password" name="psw" required>        
-                                    <button type="submit">Login</button>
+                                    <button type="submit" name="conferma" value="Login">Login</button>
                                     <input type="checkbox" checked="checked"> Ricordami
                                 </div>
                                 <div class="scatola" style="background-color:#f1f1f1">
@@ -61,12 +68,15 @@
                     <br>
                     <button onclick="document.getElementById('rg').style.display='block'" style="width: 120px;">Registrati</button> 
                         <div id="rg" class="form-modale">
-                            <form class="modulo animato" action="signin.php" method="POST">
+                            <form class="modulo animato" action="/registrazione.java" method="POST">
                                 <div class="immagine">
                                     <span onclick="document.getElementById('rg').style.display='none'" class="chiudi" title="chiudi modale">&times;</span>
                                     <img src="Immagini/utenti2.png" alt="utente" class="utente">
                                 </div>
                                 <div class="scatola">
+                                    ${UTENTI.nome} ${UTENTI.cognome} ${UTENTI.indirizzo} ${UTENTI.cap} ${UTENTI.citta} 
+                                    ${UTENTI.email} ${UTENTI.username} ${UTENTI.password} ${UTENTI.c_password}
+                                    <input type="hidden" name="clienteId" id="id" value="${UTENTI.id}"
                                     <label><b>Nome</b></label>
                                         <input type="text" placeholder="Enter Name" name="name" required>
                                     <label><b>Cognome</b></label>
@@ -85,7 +95,7 @@
                                         <input type="password" placeholder="Enter Password" name="psw" required>
                                     <label><b>Conferma Password</b></label>
                                         <input type="password" placeholder="Enter Password Again" name="conferma_psw" required>
-                                    <button type="submit">Registrati</button>
+                                    <button type="submit" name="conferma">Registrati</button>
                                     <input type="checkbox" checked="checked"> Accetto i termini di contratto
                                 </div>
                                 <div class="scatola" style="background-color:#f1f1f1">
@@ -94,7 +104,7 @@
                             </form>
                         </div>
                     <ul class="asidebar">    
-                        <li><a href="#">Registrati</a></li>
+                        <li><a href="#">###</a></li>
                         <li><a href="#">###</a></li>
                         <li><a href="#">###</a></li>
                         <li><a href="#">###</a></li>

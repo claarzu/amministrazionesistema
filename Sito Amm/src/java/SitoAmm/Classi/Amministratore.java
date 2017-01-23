@@ -5,6 +5,7 @@
  */
 package SitoAmm.Classi;
 
+import java.util.ArrayList;
 /**
  *
  * @author claar
@@ -13,130 +14,32 @@ package SitoAmm.Classi;
 
 public class Amministratore extends Utente {
     
+    protected String prodotti;
+    protected ArrayList<Prodotti> dispensaProdotti = new ArrayList<Prodotti>();
+    
     /*creo il costruttore*/
     public Amministratore()
     {
         super();
-        id = 0;
-        nome = "";
-        cognome = "";
-        indirizzo = "";
-        cap = 0;
-        citta = "";
-        email = "";
-        username = "";
-        password = "";
-        c_password = "";        
+      
     }
     
-    
-    public int getIdad()
+    public String getProdotti()
     {
-        return id;
+        return prodotti;
     }
-    
-   
-    public void setIdad(int id)
+    public void setProdotti(String prodotti)
     {
-        this.id = id;
+        this.prodotti = prodotti;
     }
     
-    
-    public String getNomead()
+    public ArrayList<Prodotti> getDispensaProdotti()
     {
-        return nome;
+        return dispensaProdotti;
     }
-    
-    
-    public void setNomead(String nome)
+    public void setDispensaProdotti (ArrayList<Prodotti> dispensaProdotti)
     {
-        this.nome = nome;
+        this.dispensaProdotti = dispensaProdotti;
     }
     
-
-    public String getCognomead()
-    {
-        return cognome;
-    }
-    
-    
-    public void setCognomead(String cognome)
-    {
-        this.cognome = cognome;
-    }
-    
-    
-    public String getIndirizzoad()
-    {
-        return indirizzo;
-    }
-    
-    
-    public void setIndirizzoad(String indirizzo)
-    {
-        this.indirizzo = indirizzo;
-    }
-    
-    
-     public int getCapad()
-    {
-        return cap;
-    }
-    
-    public void setCapad(int cap)
-    {
-        this.cap = cap;
-    }
-    
-    public String getCittaad()
-    {
-        return citta;
-    }
-    
-    public void setCittaad(String citta)
-    {
-        this.citta = citta;
-    }
-    
-    public String getEmailad()
-    {
-        return email;
-    }
-    
-    public void setEmailad(String email)
-    {
-        this.email = email;
-    }
-    
-    public String getUsernamead()
-    {
-        return username;
-    }
-    
-    public void setUsernamead(String username)
-    {
-        this.username = username;
-    }
-    
-    public String getPasswordad()
-    {
-        return password;
-    }
-    
-    public void setPasswordad(String password)
-    {
-        this.password = password;
-    }
-    
-    public String getCPasswordad()
-    {
-        return c_password;
-    }
-    
-    public void setCPasswordad(String c_password)
-    {
-        this.c_password = c_password;
-    }
-    
-    
-}
+ }

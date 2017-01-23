@@ -1,18 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SitoAmm.Classi;
 
+import java.util.ArrayList;
 /**
  *
  * @author claar
  */
-public class Carrello {
-    private Prodotti id;
+public class Carrello extends Cliente
+{
+    protected ArrayList<Cliente> listaProdotti = new ArrayList<Cliente>();
+    protected ArrayList<Carrello> listaCarrello = new ArrayList<Carrello>();
+    private int id;
     private Prodotti tipo;
-    private Prodotti prezzo;
+    private float prezzo;
     
     public Prodotti getTipo()
     {
@@ -23,20 +22,40 @@ public class Carrello {
         this.tipo = tipo;
     }
     
-    public Prodotti getId()
+    public ArrayList<Carrello> getListaCarrello()
+    {
+        return listaCarrello;
+    }
+    public void setListaCarrello (ArrayList<Carrello> listaCarrello)
+    {
+        this.listaCarrello = listaCarrello;
+    }
+    
+    public ArrayList<Cliente> getListaMerce()
+    {
+        return listaProdotti;
+    }
+    public void setListaMerce (ArrayList<Cliente> listaProdotti)
+    {
+        this.listaProdotti = listaProdotti;
+    }
+    
+    @Override
+    public int getId()
     {
         return id;
     }
-    public void setId(Prodotti id)
+    @Override
+    public void setId(int id)
     {
         this.id = id;
     }
     
-    public Prodotti getPrezzo()
+    public float getPrezzo()
     {
         return prezzo;
     }
-    public void setPrezzo(Prodotti prezzo)
+    public void setPrezzo(float prezzo)
     {
         this.prezzo = prezzo;
     }

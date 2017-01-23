@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
     private static final String DB_BUILD_PATH = "WEB-INF/db/ammdb";
     @Override 
     public void init(){
-        String dbConnection = "jdbc:derby:" + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
+        String dbConnection = "jdbc:derby:" + this.getServletContext().getRealPath("//localhost:1527/ammdb") + DB_BUILD_PATH;
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException ex) {
@@ -65,11 +65,13 @@ public class Login extends HttpServlet {
                     {
                         request.setAttribute("amministratore", u);
                         request.setAttribute("listaClienti", Users.getInstance().getClienti());
+                        request.setAttribute("ListaProdotti", Users.getInstance().getProdotti());
                         request.getRequestDispatcher("amministratore_autenticato.jsp").forward(request, response);
                     }
                     else
                     {
                         request.setAttribute("cliente", u);
+                        request.setAttribute("listaCarrello", Users.getInstance().getCarrello());
                         request.getRequestDispatcher("cliente_autenticato.jsp").forward(request, response);  
                     }                    
                 }

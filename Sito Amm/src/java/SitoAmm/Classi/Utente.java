@@ -22,7 +22,7 @@ public abstract class Utente {
     protected String password;
     protected String c_password;
     
-    // creo ial costruttore della classe
+    // creo il costruttore della classe
     public Utente()
     {
         id = 0;

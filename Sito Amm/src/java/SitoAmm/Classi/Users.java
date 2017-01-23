@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Users {
     
     private static Users istanza;
-    String connessione;
+    String connessione = "jdbc:derby://localhost:1527/ammdb";
     
     /*garantisco che venga creata una e una sola istanza e fornisco un punto di accesso globale a tale istanza.*/
     public static Users getInstance(){
@@ -38,7 +38,7 @@ public class Users {
         {
             Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
             // SQL 
-            String query = "select * from AMMINISTRATORE where "
+            String query = "select * from amministratore where "
                     + "password = ? and username = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             // dati
@@ -55,12 +55,19 @@ public class Users {
                 admin.cognome = set.getString("cognome");
                 admin.username = set.getString("username");
                 admin.password = set.getString("password");
+                admin.prodotti = set.getString("prodotti");
                 
-                query = "select UTENTI.ID, UTENTI.NOME, UTENTI.COGNOME * from UTENTI"
-                        + "join AMMINISTRATORE"
-                        + "on UTENTI.ID = AMMINISTRATORE.ID"
-                        + "where AMMINISTRATORE.ID"=+admin.id;
-                
+                query = "select prodotti.id, prodotti.tipo * from prodotti"
+                        + "where prodotti.idAmministratore="+admin.id;
+                Statement st = conn.createStatement();
+                ResultSet res2 = st.executeQuery(query);
+                while(res2.next())
+                {
+                    Prodotti p = new Prodotti();
+                    p.setId(res2.getInt("id"));
+                    p.setTipo(res2.getString("tipo"));
+                    admin.dispensaProdotti.add(p);
+                }
                 st.close();
                 stat.close();
                 conn.close();
@@ -68,8 +75,8 @@ public class Users {
                 return admin;
             }
             
-            //Utente (il cliente)
-            query = "select * from UTENTI where "
+            //Clienti
+            query = "select * from cliente where "
                     + "password = ? and username = ?";
             stat = conn.prepareStatement(query);
             // dati
@@ -80,17 +87,33 @@ public class Users {
             
             if(set.next())
             {
-                Utente user = new Utente();
-                user.id = set.getInt("id");
-                user.nome = set.getString("nome");
-                user.cognome = set.getString("cognome");
-                user.username = set.getString("username");
-                user.password = set.getString("password");
-                user.c_password = set.getString("c_password");
-                        
+                Cliente cliente = new Cliente();
+                cliente.id = set.getInt("id");
+                cliente.nome = set.getString("nome");
+                cliente.cognome = set.getString("cognome");
+                cliente.username = set.getString("username");
+                cliente.password = set.getString("password");
+                cliente.c_password = set.getString("c_password");
+                cliente.merce = set.getString("merce"); 
+                
+                query = "select prodotti.id, prodotti.tipo * from prodotti"
+                        + "join carrello"
+                        + "on prodotti.id = carrello.idProdotto"
+                        + "where carrello.clienteId="+cliente.id;
+                Statement st2 = conn.createStatement();
+                ResultSet res3 = st2.executeQuery(query);
+                while(res3.next())
+                {
+                    Carrello c = new Carrello();
+                    Prodotti p2 = new Prodotti();
+                    c.setId(res3.getInt("id"));
+                    p2.setTipo(res3.getString("tipo"));
+                    cliente.listaProdotti.add(c);
+                }
+                st2.close();
                 stat.close();
                 conn.close();
-                return user;
+                return cliente;
             }            
             stat.close();
             conn.close();
@@ -108,36 +131,38 @@ public class Users {
     {
         try {
             Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
-            String query = "select * from AMMINISTRATORE" + "where ID = ?";
+            String query = "select * from amministratore" 
+                    + "where id = ?";
             PreparedStatement stat = conn.prepareStatement(query);
             //adesso associo i valori
             stat.setInt(1, id);
+            //eseguo la query
             ResultSet ris = stat.executeQuery();
             
             //ora controllo quante sono le righe presenti nel db AMMINISTRATORE
             if (ris.next()) 
             {
                 Amministratore admin = new Amministratore();
-                admin.setIdad(ris.getInt("ID"));
-                admin.setNomead(ris.getString("NOME"));
-                admin.setCognomead(ris.getString("COGNOME"));
-                admin.setUsernamead(ris.getString("USERNAME"));
-                admin.setPasswordad(ris.getString("PASSWORD"));
+                admin.setId(ris.getInt("id"));
+                admin.setNome(ris.getString("nome"));
+                admin.setCognome(ris.getString("cognome"));
+                admin.setUsername(ris.getString("username"));
+                admin.setPassword(ris.getString("password"));
+                admin.setProdotti("prodotti");
                 
-                query = "select UTENTE.ID, UTENTE.NOME, UTENTE.COGNOME * from UTENTI"
-                        + "join AMMINISTRATORE"
-                        + "on UTENTI.ID = AMMINISTRATORE.ID"
-                        + "where AMMINISTRATORE.ID"=+admin.id;
+                query = "select prodotti.id, prodotti.tipo * from prodotti"
+                        + "join amministratore"
+                        + "on prodotti.id = prodotti.idAmministratore"
+                        + "where prodotti.idAmministratore="+admin.id;
                 Statement st = conn.createStatement();
                 ResultSet ris2 = st.executeQuery(query);
                 while(ris2.next())
                 {
-                    Utente user = new Utente();
-                    user.setId(ris2.getInt("ID"));
-                    user.setNome(ris2.getString("NOME"));
-                    admin.Utente.add(user);
-                }           
-                
+                    Prodotti p = new Prodotti();
+                    p.setId(ris2.getInt("id"));
+                    p.setTipo(ris2.getString("tipo"));
+                    admin.dispensaProdotti.add(p);
+                }
                 st.close();
                 stat.close();
                 conn.close();
@@ -160,8 +185,8 @@ public class Users {
         {
             Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
             Statement stat = conn.createStatement();
-            String query = "select * from "
-            + "AMMINISTRATORE";
+            String query = "select * from amministratore";
+            
             ResultSet set = stat.executeQuery(query);
             
             //righe restitute dal ciclo
@@ -173,6 +198,7 @@ public class Users {
                 admin.setCognome(set.getString("cognome"));
                 admin.setUsername(set.getString("username"));
                 admin.setPassword(set.getString("password"));
+                admin.setProdotti(set.getString("prodotti"));
                 listaAdmin.add(admin);
             } 
             
@@ -195,19 +221,19 @@ public class Users {
         {
             Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
             Statement stat = conn.createStatement();
-            String query = "select * from CLIENTE";
+            String query = "select * from cliente";
             ResultSet set = stat.executeQuery(query);
             
              // ciclo sulle righe restituite
             while(set.next()) 
             {
-                Cliente cl_nte = new Cliente();
-                cl_nte.setIdcl(set.getInt("id"));
-                cl_nte.setNomecl(set.getString("nome"));
-                cl_nte.setCognomecl(set.getString("cognome"));
-                cl_nte.setUsernamecl(set.getString("username"));
-                cl_nte.setPasswordcl(set.getString("password"));
-                listaClienti.add(cl_nte);
+                Cliente cliente = new Cliente();
+                cliente.setId(set.getInt("id"));
+                cliente.setNome(set.getString("nome"));
+                cliente.setCognome(set.getString("cognome"));
+                cliente.setUsername(set.getString("username"));
+                cliente.setPassword(set.getString("password"));
+                listaClienti.add(cliente);
             }     
             
             stat.close();
@@ -220,15 +246,14 @@ public class Users {
         return listaClienti;
     }
     
-    // Dato un id restituisce il relativo studente (se esiste uno studente con quell'id, altrimenti
-    // restituisce null).
+    // Dato un id restituisce il relativo cliente, se ne esiste uno, altrimenti restituisce null
     public Cliente getCliente(int id)
     {
         try 
         {
             Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
-            String query = "select * from CLIENTE "
-            + "where ID = ?";
+            String query = "select * from cliente "
+            + "where id = ?";
             // Prepared Statement
             PreparedStatement stat = conn.prepareStatement(query);
             // Si associano i valori
@@ -239,17 +264,32 @@ public class Users {
              // ciclo sulle righe restituite
             if(ris.next()) 
             {
-                Cliente cl_nte = new Cliente();
-                cl_nte.setIdcl(ris.getInt("id"));
-                cl_nte.setNomecl(ris.getString("nome"));
-                cl_nte.setCognomecl(ris.getString("cognome"));
-                cl_nte.setUsernamecl(ris.getString("username"));
-                cl_nte.setPasswordcl(ris.getString("password"));
-                cl_nte.setCPasswordcl(ris.getString("c_password"));
+                Cliente cliente = new Cliente();
+                cliente.setId(ris.getInt("id"));
+                cliente.setNome(ris.getString("nome"));
+                cliente.setCognome(ris.getString("cognome"));
+                cliente.setUsername(ris.getString("username"));
+                cliente.setPassword(ris.getString("password"));
+                cliente.setCPassword(ris.getString("c_password"));
                 
+                query = "select prodotti.id, prodotti.tipo, prodotti.prezzo from prodotti"
+                    + "join carrello"
+                    + "on prodotti.id=carrello.idProdotto"
+                    + "where carrello.idCliente="+cliente.getId();
+                Statement st = conn.createStatement();
+                ResultSet ris2 = st.executeQuery(query);
+                while(ris2.next())
+                {
+                    Carrello c = new Carrello();
+                    Prodotti c2 = new Prodotti();
+                    c.setId(ris2.getInt("id"));
+                    c2.setTipo(ris2.getString("tipo"));
+                    cliente.listaProdotti.add(c);
+                }
+                st.close();
                 stat.close();
                 conn.close();
-                return cl_nte;
+                return cliente;
             }
             
             stat.close();
@@ -261,6 +301,163 @@ public class Users {
         }
         return null;
     }
+    
+    
+    public ArrayList<Prodotti> getProdotti()
+    {
+        ArrayList<Prodotti> lista = new ArrayList<Prodotti>();
+        
+        try 
+        {
+            Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
+            Statement stat = conn.createStatement();
+            String query = "select * from prodotti";
+            ResultSet set = stat.executeQuery(query);
+            
+             // ciclo sulle righe restituite
+            while(set.next()) 
+            {
+                Prodotti p = new Prodotti();
+                p.setId(set.getInt("id"));
+                p.setTipo(set.getString("tipo"));
+                p.setPrezzo(set.getFloat("prezzo"));                
+                lista.add(p);
+            }     
+            
+            stat.close();
+            conn.close();
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+    public Prodotti getProdotti(String tipo)
+    {
+        try 
+        {
+            Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
+            String query = "select * from prodotti "
+            + "where id = ?";
+            // Prepared Statement
+            PreparedStatement stat = conn.prepareStatement(query);
+            // Si associano i valori
+            stat.setString(1, tipo);
+            // Esecuzione query
+            ResultSet ris = stat.executeQuery();
+           
+             // ciclo sulle righe restituite
+            if(ris.next()) 
+            {
+                Prodotti p = new Prodotti();
+                p.setId(ris.getInt("id"));
+                p.setTipo(ris.getString("tipo"));
+                p.setPrezzo(ris.getFloat("prezzo"));                
+                
+                stat.close();
+                conn.close();
+                return p;
+            }
+            
+            stat.close();
+            conn.close();
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
+    public ArrayList<Carrello> getCarrello()
+    {
+        ArrayList<Carrello> listaMerce = new ArrayList<Carrello>();
+        try 
+        {
+            Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
+            Statement stat = conn.createStatement();
+            String query = "select * from "
+            + "carrello";
+            ResultSet set = stat.executeQuery(query);
+            
+            //righe restitute dal ciclo
+            while(set.next()) 
+            {
+                Carrello c = new Carrello();
+                Prodotti p = new Prodotti();
+                c.setId(set.getInt("id"));
+                p.setTipo(set.getString("tipo"));
+                c.setPrezzo(set.getFloat("prezzo"));                
+                listaMerce.add(c);
+                
+            } 
+            
+            stat.close();
+            conn.close();
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return listaMerce;
+    }
+    public Carrello getCarrello(String tipo)
+    {
+         try 
+        {
+            Connection conn = DriverManager.getConnection(connessione, "Claudio", "Arzu");
+            String query = "select * from carrello "
+            + "where id = ?";
+            // Prepared Statement
+            PreparedStatement stat = conn.prepareStatement(query);
+            // Si associano i valori
+            stat.setString(1, tipo);
+            // Esecuzione query
+            ResultSet ris = stat.executeQuery();
+           
+             // ciclo sulle righe restituite
+            if(ris.next()) 
+            {
+                Carrello cliente = new Carrello();
+                Prodotti p = new Prodotti();               
+                p.setTipo(ris.getString("tipo"));
+                cliente.setId(ris.getInt("id"));                
+                cliente.setPrezzo(ris.getFloat("prezzo"));
+                
+                
+                query = "select prodotti.id, prodotti.tipo, prodotti.prezzo from prodotti"
+                    + "join carrello"
+                    + "on prodotti.id=carrello.idProdotto"
+                    + "where carrello.idCliente="+cliente.getId();
+                Statement st = conn.createStatement();
+                ResultSet ris2 = st.executeQuery(query);
+                while(ris2.next())
+                {
+                    Carrello c = new Carrello();
+                    Prodotti c2 = new Prodotti();
+                    c.setId(ris2.getInt("id"));
+                    c2.setTipo(ris2.getString("tipo"));
+                    cliente.listaProdotti.add(c);
+                }
+                st.close();
+                stat.close();
+                conn.close();
+                return cliente;
+            }
+            
+            stat.close();
+            conn.close();
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
  
     
     public void registraCliente(int idCliente, String nomeCliente, String cognomeCliente, String indirizzoCliente, 
@@ -272,69 +469,112 @@ public class Users {
                 "Claudio",
                 "Arzu");
         
-        PreparedStatement aggiornaClienti = null;
-        PreparedStatement aggiornaClien_ti = null;
-        
+        PreparedStatement aggiornaClienti=null;
+                     
         // Sql 
-        String eliminaCliente = "delete from CLIENTE "
-                + "join UTENTI"
-                + "on CLIENTE"
-                + "where idCliente = ? "
-                + "and ID = ?";
-        String insertCliente = "insert into CLIENTE + UTENTI "
+        String insertCliente = "insert into clienti"
                 + "(idCliente, nomeCliente, cognomeCliente, indirizzoCliente, \n" +
                 "capCliente, cittaCliente,  emailCliente, usernameCliente, passwordCliente, c_passwordCliente) "
                 + "values (?,?,?,?,?,?,?,?,?,?)";
         
         try
         {
-           conn.setAutoCommit(false);
-           aggiornaClienti = conn.prepareStatement(eliminaCliente);
-           aggiornaClien_ti = conn.prepareStatement(insertCliente);
-           
-           // elimino da UTENTI
-           aggiornaClienti.setInt(1, idCliente);
-           aggiornaClienti.setInt(1, id);
-           // aggiorno CLIENTI
-           aggiornaClien_ti.setInt(1, idCliente);
-           aggiornaClien_ti.setString(2, nomeCliente);
-           aggiornaClien_ti.setString(3, cognomeCliente);
-           aggiornaClien_ti.setString(4, indirizzoCliente);
-           aggiornaClien_ti.setInt(5, capCliente);
-           aggiornaClien_ti.setString(6, cittaCliente);
-           aggiornaClien_ti.setString(7, emailCliente);
-           aggiornaClien_ti.setString(8, usernameCliente);
-           aggiornaClien_ti.setString(9, passwordCliente);
-           aggiornaClien_ti.setString(10, c_passwordCliente);
-           
-           
-           int c1 = aggiornaClienti.executeUpdate();
-           int c2 = aggiornaClien_ti.executeUpdate();
-           
-           if(c1 != 1 || c2 != 1)
-               conn.rollback();
-           
-           conn.commit();           
-        }catch(SQLException e)
-        {
-            try
+            conn.setAutoCommit(false);
+            aggiornaClienti = conn.prepareStatement(insertCliente);
+            
+            aggiornaClienti.setInt(1, idCliente);
+            aggiornaClienti.setString(2, nomeCliente);
+            aggiornaClienti.setString(3, cognomeCliente);
+            aggiornaClienti.setString(4, indirizzoCliente);
+            aggiornaClienti.setInt(5, capCliente);
+            aggiornaClienti.setString(6, cittaCliente);
+            aggiornaClienti.setString(7, emailCliente);
+            aggiornaClienti.setString(8, usernameCliente);
+            aggiornaClienti.setString(9, passwordCliente);
+            aggiornaClienti.setString(10, c_passwordCliente);
+            
+            int a = aggiornaClienti.executeUpdate();
+            
+            if (a != 1)
             {
                 conn.rollback();
-            }catch(SQLException e2)
-            {
-                
             }
-        }
-        finally
-        {
-            if(aggiornaClienti != null)
-                aggiornaClienti.close();
-            if(aggiornaClien_ti != null)
-                aggiornaClien_ti.close();
+        } catch(SQLException e)
+          {
+              try
+              {
+                  conn.rollback();
+              }catch(SQLException e2)
+               {                
+               }    
+            }finally 
+            {
+                if(aggiornaClienti != null)
+                {
+                    aggiornaClienti.close();
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
+            }
+
+    }
+    
+    public void aggiungiCarrello (int id, String tipo, double prezzo)
+            throws SQLException
+    {
+        String query = "INSERT INTO carrello VALUES (?,?)";
+        Connection conn = DriverManager.getConnection(
+                Users.getInstance().getConnectionString(),
+                "Claudio",
+                "Arzu");
+        PreparedStatement pstmt;
+        pstmt = conn.prepareStatement(query);
+        pstmt.setInt(1, id);
+        pstmt.setString(2, tipo);
+        pstmt.setDouble(3, prezzo);
+        int entriesModificate = pstmt.executeUpdate();
+        if(entriesModificate<0){
             
-            conn.setAutoCommit(true);
-            conn.close();
-        }    
+        }				
+        pstmt.close();
+    }
+    
+    public void visualCarrello (int idCliente, int idCarrello)
+            throws SQLException
+    {
+        Connection conn = DriverManager.getConnection(
+                Users.getInstance().getConnectionString(),
+                "Claudio",
+                "Arzu");
+        String query = "SELECT idCliente FROM cliente"
+                + "JOIN carrello"
+                + "WHERE carrello.id=cliente.idCliente";
+        PreparedStatement pstmt;
+        pstmt= conn.prepareStatement(query);
+        ResultSet rs = pstmt.executeQuery();
+        while(rs.next()){
+        int id = rs.getInt(1);
+        String tipo = rs.getString(2);
+        double prezzo = rs.getDouble(3);        
+        }
+        rs.close();
+        pstmt.close();
+    }
+    
+    public void deleteCarrello (int idCliente, int idCarrello)
+            throws SQLException
+    {
+        Connection conn = DriverManager.getConnection(
+                Users.getInstance().getConnectionString(),
+                "Claudio",
+                "Arzu");
+        String query = "DELETE FROM carrello WHERE id=?";
+        PreparedStatement pstmt;
+        pstmt = conn.prepareStatement(query);
+        /*pstmt.setInt(1, id);*/
+        int recordCancellati = pstmt.executeUpdate();
+        pstmt.close();
+    
     }
     
     // ConnectionString

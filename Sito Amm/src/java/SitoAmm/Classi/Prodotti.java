@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SitoAmm.Classi;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -13,6 +10,8 @@ public class Prodotti {
     private int id;
     private String tipo;
     private float prezzo;
+    protected ArrayList<Prodotti> ListaProdotti = new ArrayList<Prodotti>();
+
     
     public int getId()
     {
@@ -22,9 +21,7 @@ public class Prodotti {
     {
         this.id = id;
     }
-    
-    
-    
+
     public String getTipo()
     {
         return tipo;
@@ -33,8 +30,6 @@ public class Prodotti {
     {
         this.tipo = tipo;
     }
-    
-    
     
     public float getPrezzo()
     {
@@ -45,5 +40,12 @@ public class Prodotti {
         this.prezzo = prezzo;
     }
     
-    
+    public ArrayList<Prodotti> getListaProdotti()
+    {
+           return ListaProdotti;     
+    }    
+    public void setListaProdotti (ArrayList<Prodotti> ListaProdotti)
+    {
+        this.ListaProdotti = ListaProdotti;
+    }
 }

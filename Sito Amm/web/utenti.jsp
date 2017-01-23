@@ -27,13 +27,13 @@
                     <li class="menu">
                         <a href="#" class="bmenu">Prodotti</a>                       
                             <ul class="cont-menu">
-                                <li><a href="#">Birre</a></li>
-                                <li><a href="#">Vini</a></li>
+                                <li><a href="birre.jsp">Birre</a></li>
+                                <li><a href="Vini.jsp">Vini</a></li>
                                 <li><a href="#">Alcolici</a></li>
                             </ul>                                                  
                     </li>                                                     
                     <li><a href="contattaci.html">Contattaci</a></li> 
-                    <li><a href="utente.html">Utente</a></li> 
+                    <li><a href="utente.jsp">Utente</a></li> 
                     <li id="carrello"><a href="#Carrello">Carrello</a></li>
                     <li class="resp">
                         <a href="javascript:void(0);" style="font-size:15px;" 
@@ -45,7 +45,7 @@
                 <aside class="sidelft">                    
                     <button onclick="document.getElementById('lg').style.display='block'" style="width: 120px;">Login</button>
                         <div id="lg" class="form-modale">
-                            <form class="modulo animato" action="Login" method="POST">
+                            <form class="modulo animato" action="Login" method="post">
                                 <div class="immagine">
                                     <span onclick="document.getElementById('lg').style.display='none'" class="chiudi" title="chiudi form">&times;</span>
                                     <img src="Immagini/utenti2.png" alt="utente" class="utente">
@@ -68,15 +68,15 @@
                     <br>
                     <button onclick="document.getElementById('rg').style.display='block'" style="width: 120px;">Registrati</button> 
                         <div id="rg" class="form-modale">
-                            <form class="modulo animato" action="/registrazione.java" method="POST">
+                            <form class="modulo animato" action="Registrazione.java" method="POST">
                                 <div class="immagine">
                                     <span onclick="document.getElementById('rg').style.display='none'" class="chiudi" title="chiudi modale">&times;</span>
                                     <img src="Immagini/utenti2.png" alt="utente" class="utente">
                                 </div>
                                 <div class="scatola">
-                                    ${UTENTI.nome} ${UTENTI.cognome} ${UTENTI.indirizzo} ${UTENTI.cap} ${UTENTI.citta} 
-                                    ${UTENTI.email} ${UTENTI.username} ${UTENTI.password} ${UTENTI.c_password}
-                                    <input type="hidden" name="clienteId" id="id" value="${UTENTI.id}"
+                                    ${cliente.nomeCliente} ${cliente.cognomeCliente} ${cliente.indirizzoCliente} ${cliente.capCliente} ${cliente.cittaCliente} 
+                                    ${cliente.emailCliente} ${cliente.usernameCliente} ${cliente.passwordCliente} ${cliente.c_passwordCliente}
+                                    <input type="hidden" name="clienteId" id="id" value="${cliente.idCliente}"
                                     <label><b>Nome</b></label>
                                         <input type="text" placeholder="Enter Name" name="name" required>
                                     <label><b>Cognome</b></label>

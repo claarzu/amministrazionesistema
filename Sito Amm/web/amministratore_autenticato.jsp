@@ -26,8 +26,8 @@
                     <li class="menu">
                         <a href="#" class="bmenu">Prodotti</a>                       
                             <ul class="cont-menu">
-                                <li><a href="#">Birre</a></li>
-                                <li><a href="#">Vini</a></li>
+                                <li><a href="birre.jsp">Birre</a></li>
+                                <li><a href="Vini.jsp">Vini</a></li>
                                 <li><a href="#">Alcolici</a></li>
                             </ul>                                                  
                     </li>                                                     
@@ -44,20 +44,16 @@
             <div id="contenuto">
                 <h1><center>Botell&oacute;n</center></h1>
                 <p><center>Benvenuto ${amministratore.nome} ${amministratore.cognome}</center></p>
-            <ul>
-                Lista prodotti:
-                <c:forEach var="prodotto" items="${amministratore.ALCOLICI} ${amministratore.BIRRE} ${amministratore.VINI}">
-                        <li>${prodotto.ALCOLICI.tipo} - ${prodotto.ALCOLICI.prezzo}</li>
-                        <li>${prodotto.BIRRE.tipo} - ${prodotto.BIRRE.prezzo}</li>
-                        <li>${prodotto.VINI.tipo} - ${prodotto.VINI.prezzo}</li>
-                </c:forEach>
-                <c:forEach var="clienti" items="${listaClienti}">
+                <ul>
+                    Lista prodotti:
+                    <c:forEach var="prodotto" items="${amministratore.prodotti}">
+                        <li>${prodotto.prodotti.tipo} - ${prodotto.prdotti.prezzo}</li>                        
+                    </c:forEach>
+                    <c:forEach var="clienti" items="${listaClienti}">
                         <li>${clienti.nome} - ${clienti.cognome}</li>
                         <a href="Amministra utente clienteId=${clienti.id}"></a>
-                </c:forEach>
-            </ul>
-            
-                <p><center></center></p>
+                    </c:forEach>
+                </ul>       
             </div>
         </div>
                 

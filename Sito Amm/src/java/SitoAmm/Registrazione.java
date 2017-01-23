@@ -35,34 +35,38 @@ public class Registrazione extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         
-        int id = Integer.parseInt(request.getParameter("clienteId"));
-        request.setAttribute("cliente", Users.getInstance().getCliente(id));
+        int id = Integer.parseInt(request.getParameter("clienteId"));        
+        request.setAttribute("cliente", Users.getInstance().getCliente((int)session.getAttribute("id")));
         request.setAttribute("amministratore", Users.getInstance()
                 .getAmministratore((int)session.getAttribute("id")));
         
-        if (request.getParameter("conferma")!= null) {
+        if (request.getParameter("conferma")!= null) 
+        {
             //prelevo i dati del form della pagina utenti.jsp
-            int clienteId = Integer.parseInt(request.getParameter("clienteId"));            
-            String nome = request.getParameter("name");
-            String cognome = request.getParameter("sname");
-            String indirizzo = request.getParameter("address");
-            String cap = request.getParameter("cap");
-            String citta = request.getParameter("city");
-            String email = request.getParameter("e-mail");
-            String username = request.getParameter("u_name");
-            String password = request.getParameter("psw");
-            String c_password = request.getParameter("conferma_psw");
+            int idCliente = Integer.parseInt(request.getParameter("clienteId"));            
+            String nomeCliente = request.getParameter("name");
+            String cognomeCliente = request.getParameter("sname");
+            String indirizzoCliente = request.getParameter("address");
+            int capCliente = Integer.parseInt(request.getParameter("cap"));
+            String cittaCliente = request.getParameter("city");
+            String emailCliente = request.getParameter("e-mail");
+            String usernameCliente = request.getParameter("u_name");
+            String passwordCliente = request.getParameter("psw");
+            String c_passwordCliente = request.getParameter("conferma_psw");
+        
+            try 
+            {
+                Users.getInstance().registraCliente(idCliente, nomeCliente, cognomeCliente, indirizzoCliente, capCliente, 
+                        cittaCliente, emailCliente, usernameCliente, passwordCliente, c_passwordCliente); 
+            } catch (SQLException e)
+            {
+            }
         }
-        try 
-        {
-            Users.getInstance().registraCliente(clienteId, nomeCliente, cognomeCliente, indirizzoCliente, capCliente, 
-                    cittaCliente, emailCliente, usernameCliente, passwordCliente, c_passwordCliente); 
-        } catch (SQLException e)
-        {
-        }
+        request.getRequestDispatcher("utenti.jsp").forward(request, response);
     }
     
-    request.getRequestDispatcher("utenti.jsp").foward(request, response);
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
